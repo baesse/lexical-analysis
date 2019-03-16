@@ -1,0 +1,19 @@
+{
+  "name": "lexical-analysis",
+  "version": "0.0.1",
+  "description": "This project is for to build a lexical analysis of java language using javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baesse/lexical-analysis.git"
+  },
+  "author": "Igor Baesse de Araujo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/baesse/lexical-analysis/issues"
+  },
+  "homepage": "https://github.com/baesse/lexical-analysis#readme"
+}
