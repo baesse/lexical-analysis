@@ -12,14 +12,16 @@ const ReadFileCrawler = () => {
                     const chars = file.toString().split('')
                     let rows = 0
                     let charPosition = 0
+                    let aux = 0
                     chars.forEach(e => {
                         if (e === '\n') {
                             rows++
+                            aux = charPosition
                             charPosition = 0
                         } else {
                             charPosition++
                         }
-                        charInformation.push({ char: e, rowIndex: rows, charIndex: charPosition })
+                        charInformation.push({ char: e, rowIndex: rows, charIndex: aux })
                     })                   
                     automaton.automaton(charInformation)
                 })

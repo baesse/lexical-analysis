@@ -105,6 +105,12 @@ const automaton = (code) => {
             case 10:
                 aux = code[charPosition].char
                 charPosition++
+                if (code[charPosition].char != '|'){
+                    code[charPosition].message =`Caracter ${code[charPosition].char} não esperado, caracter esperado é |`;
+                    aux = ''
+                    registerError(code[charPosition])
+                    position = 1
+                }
                 aux = aux + code[charPosition].char
                 position = 11;
                 break
@@ -116,6 +122,12 @@ const automaton = (code) => {
             case 12:
                 aux = code[charPosition].char
                 charPosition++
+                if (code[charPosition].char != '&'){
+                    code[charPosition].message =`Caracter ${code[charPosition].char} não esperado linha ${code[charPosition].rowIndex} coluna ${code[charPosition].charIndex}, caracter esperado é &`;
+                    aux = ''
+                    registerError(code[charPosition])
+                    position = 1
+                }
                 aux = aux + code[charPosition].char
                 position = 13;
                 break
@@ -177,6 +189,11 @@ const automaton = (code) => {
                 if (code[charPosition].char == '"') {
                     aux += code[charPosition].char
                     position = 22;
+                } else if (code[charPosition].char === '\n') {
+                    code[charPosition].message =`Você deve fechar a string na linha ${code[charPosition].rowIndex} coluna ${code[charPosition].charIndex}`;
+                    aux = ''
+                    registerError(code[charPosition])
+                    position = 1
                 } else {
                     position = 21
                 }
@@ -216,7 +233,7 @@ const automaton = (code) => {
                 charPosition++
                 position = 1
                 break
-            case 28: // <
+            case 28: 
                 aux = code[charPosition].char
                 charPosition++
                 if (code[charPosition].char == '=') {
@@ -291,8 +308,6 @@ const automaton = (code) => {
                         position = 35
                     }
                 }
-
-
                 break
             default:
                 break
@@ -308,6 +323,9 @@ const automaton = (code) => {
             codeTable.itens.push({ KEY: 'ID', VALUE: lexama })
         }
         return ''
+    }
+    function registerError(error) {        
+        codeTable.errors.push(error)
     }
     console.log(codeTable)
 }
