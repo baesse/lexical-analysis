@@ -12,6 +12,7 @@ const automaton = (code) => {
         switch (position) {
             case 1:
                 if (code[charPosition].char == ' ' || code[charPosition].char == '\t' || code[charPosition].char == '\n' || code[charPosition].char == '\r') {
+
                     charPosition++
                     position = 1;
                     aux = ''
@@ -39,7 +40,7 @@ const automaton = (code) => {
                     position = 20
                 } else if (code[charPosition].char == '"') {
                     position = 21
-                } else if (isNumber.test(code[charPosition].char)) {                   
+                } else if (isNumber.test(code[charPosition].char)) {
                     position = 23
                 } else if (code[charPosition].char == '+') {
                     position = 25
@@ -186,16 +187,16 @@ const automaton = (code) => {
                 charPosition++
                 position = 1
                 break
-            case 23:            
+            case 23:
                 if (isNumber.test(code[charPosition].char)) {
                     aux = aux + code[charPosition].char
-                    charPosition++                  
+                    charPosition++
                     position = 23
-                } else {                    
-                    position = 24;                    
+                } else {
+                    position = 24;
                 }
                 break
-            case 24:  
+            case 24:
                 validLexama(aux)
                 aux = ''
                 position = 1
@@ -237,26 +238,68 @@ const automaton = (code) => {
                 position = 1
                 break
             case 31:
-                if (isCaracter.test(code[charPosition].char)) {
+                if (isCaracter.test(code[charPosition].char) || (isNumber.test(code[charPosition].char) && aux.length)) {
                     aux = aux + code[charPosition].char
                     charPosition++
                     position = 31
                 } else {
                     position = 32;
-                }             
+                }
                 break
             case 32:
                 validLexama(aux)
                 charPosition++
                 aux = ''
                 position = 1
+                break
+            case 33:
+                aux += code[charPosition].char
+                charPosition++
+                if (code[charPosition].char == '/') {
+                    position = 34
+                } else if (code[charPosition].char == '*') {
+                    aux += code[charPosition].char
+                    position = 35
+                } else {
+                    validLexama(aux)
+                    aux = ''
+                    position = 1
+                }
+                break
+            case 34:
+                if (code[charPosition].char == '\n') {
+                    aux = ''
+                    position = 1
+                } else {
+                    position = 34
+                    charPosition++
+                }
+                break
+            case 35:
+                charPosition++
+             
+                if (code[charPosition].char != '*') {
+                    position = 35                   
+                } else {
+                    charPosition++
+                   
+                    if (code[charPosition].char == '/') {
+                        aux = ''  
+                        charPosition++                      
+                        position = 1
+                    } else {
+                        position = 35
+                    }
+                }
+
+
+                break
             default:
                 break
 
         }
 
-    }
-    console.log(codeTable)
+    }    
     function validLexama(lexama, char) {
         var lex = ts.tableSearh(lexama)
         if (lex) {
@@ -266,6 +309,7 @@ const automaton = (code) => {
         }
         return ''
     }
+    console.log(codeTable)
 }
 
 
