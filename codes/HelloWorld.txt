@@ -1,4 +1,11 @@
-if(10 == 10 ||  10 == 10 ){
-"igor"
-"iago"   "
-}
+public class HelloJavazim
+    string msgm;
+    msgm ="Hello World";
+    9873   
+    123.123
+    SystemOutDispln(msgm);
+    //Comentario linha
+    msgm = "igor"
+    /* Teste comentario duas linhas
+    */
+end

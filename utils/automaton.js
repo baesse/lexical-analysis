@@ -16,7 +16,7 @@ const automaton = (code) => {
                     charPosition++
                     position = 1;
                     aux = ''
-                } else if (code[charPosition].char == '=') { //ok
+                } else if (code[charPosition].char == '=') {                   
                     position = 2
                 } else if (code[charPosition].char == '(') {
                     position = 5
@@ -57,7 +57,7 @@ const automaton = (code) => {
                 }
                 break
             case 2: // =
-                aux = code[charPosition].char
+                aux = code[charPosition].char                
                 charPosition++
                 if (code[charPosition].char == '=') {
                     aux = aux + code[charPosition].char
@@ -205,7 +205,7 @@ const automaton = (code) => {
                 position = 1
                 break
             case 23:
-                if (isNumber.test(code[charPosition].char)) {
+                if (isNumber.test(code[charPosition].char) || (code[charPosition].char === '.' && aux.length)) {
                     aux = aux + code[charPosition].char
                     charPosition++
                     position = 23
@@ -255,7 +255,7 @@ const automaton = (code) => {
                 position = 1
                 break
             case 31:
-                if (isCaracter.test(code[charPosition].char) || (isNumber.test(code[charPosition].char) && aux.length)) {
+                if (isCaracter.test(code[charPosition].char) || (isNumber.test(code[charPosition].char) && aux.length)) {                   
                     aux = aux + code[charPosition].char
                     charPosition++
                     position = 31
@@ -263,9 +263,8 @@ const automaton = (code) => {
                     position = 32;
                 }
                 break
-            case 32:
-                validLexama(aux)
-                charPosition++
+            case 32:                
+                validLexama(aux)                                        
                 aux = ''
                 position = 1
                 break
